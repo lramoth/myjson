@@ -56,9 +56,11 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  # API namespace, restricted to the api subdomain
+  # API namespace
+  # defaults to json, doesn't include /api/ in path
+  # and restricted to the api subdomain
   # example: http://api.myjson.com/objects/:id
-  namespace :api, :path => "", :constraints => {:subdomain => "api"} do
+  namespace :api, :defaults => {:format => :json}, :path => "", :constraints => {:subdomain => "api"} do
     resources :objects
   end
 end
