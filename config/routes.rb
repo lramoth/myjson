@@ -1,15 +1,24 @@
 Rails.application.routes.draw do
-  get 'home/index'
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'home#index'
+  # API namespace
+  # defaults to json, doesn't include /api/ in path
+  # and restricted to the api subdomain
+  # example: http://api.myjson.com/objects/:id
+  namespace :api, :path => "", :constraints => {:subdomain => "api"} do
+    # http://api.myjson.com/objects
+    resources :objects, :defaults => {:format => :json}
+    # http://api.myjson.com
+    root :to => 'home#index', :defaults => {:format => :text}
+  end
+
+  # http://myjson.com
+  root :to => 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
+  
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
@@ -56,11 +65,4 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
-  # API namespace
-  # defaults to json, doesn't include /api/ in path
-  # and restricted to the api subdomain
-  # example: http://api.myjson.com/objects/:id
-  namespace :api, :defaults => {:format => :json}, :path => "", :constraints => {:subdomain => "api"} do
-    resources :objects
-  end
 end

@@ -1,5 +1,5 @@
 class API::ObjectsController < ApplicationController
-
+  
   def index
     # this is just a test for now
     respond_to do |format|
