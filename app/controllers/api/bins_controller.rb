@@ -31,7 +31,11 @@ class API::BinsController < ApplicationController
 
   # POST /bins
   def create
-    @bin = Bin.new(bin_params)
+    data = Hash.new;
+    data["data"] = JSON.parse(request.body.string)
+    #logger.debug "request.body.string: #{request.body.string}"
+    #logger.debug "data hash: #{data}"
+    @bin = Bin.new(data)
     respond_to do |format|
       if @bin.save
         format.json { render :json => {:status => "success", :uri => "#{request.original_url}/#{@bin.encode_id}"}}
