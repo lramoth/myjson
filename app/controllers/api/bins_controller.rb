@@ -22,7 +22,7 @@ class API::BinsController < ApplicationController
         #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop.to_i - 1000}"
         id = params[:id].to_i(36).to_s.reverse.chop.to_i - 1000
         @bin = Bin.find(id);
-        format.json { render :json => {:bin => {:data => @bin.data}} }
+        format.json { render :json => @bin.data}
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:error => "404 Not Found"}, :status => 404}
       end
