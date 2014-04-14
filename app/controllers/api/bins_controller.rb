@@ -2,10 +2,10 @@ class API::BinsController < ApplicationController
  
   skip_before_filter  :verify_authenticity_token
 
+  # GET /bins
   def index
-    # this is just a test for now
     respond_to do |format|
-      msg = { :status => "ok" }
+      msg = { :bins => [] }
       format.json { render :json => msg }
     end
   end
@@ -53,9 +53,9 @@ class API::BinsController < ApplicationController
       # Also, we may in the future have parameters we do want to whitelist.
       # This solution came from the following thread: https://github.com/rails/rails/issues/9454
       # where the data attribute is added to the whitelisted set of parameters
-      params.require(:bin).permit().tap do |whitelisted|
-        whitelisted[:data] = params[:bin][:data]
-      end
+      #params.require(:bin).permit().tap do |whitelisted|
+        #whitelisted[:data] = params[:bin][:data]
+      #end
     end
 
 end
