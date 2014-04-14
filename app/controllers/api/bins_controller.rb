@@ -14,7 +14,14 @@ class API::BinsController < ApplicationController
   def show
     respond_to do |format|
       begin
-        @bin = Bin.find(params[:id]);
+        #logger.debug "decoding id"
+        #logger.debug "#{params[:id]}"
+        #logger.debug "#{params[:id].to_i(36)}"
+        #logger.debug "#{params[:id].to_i(36).to_s.reverse}"
+        #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop}"
+        #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop.to_i - 1000}"
+        id = params[:id].to_i(36).to_s.reverse.chop.to_i - 1000
+        @bin = Bin.find(id);
         format.json { render :json => {:bin => {:data => @bin.data}} }
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:error => "404 Not Found"}, :status => 404}
@@ -27,7 +34,7 @@ class API::BinsController < ApplicationController
     @bin = Bin.new(bin_params)
     respond_to do |format|
       if @bin.save
-        format.json { render :json => {:status => "success", :uri => "#{request.original_url}/#{@bin.id}"}}
+        format.json { render :json => {:status => "success", :uri => "#{request.original_url}/#{@bin.encode_id}"}}
       else
         format.json { render json:@bin.errors, status: :unprocessable_entity}
       end
