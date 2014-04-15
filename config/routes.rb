@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # and restricted to the api subdomain
   # example: http://api.myjson.com/objects/:id
   namespace :api, :path => "", :constraints => {:subdomain => "api"} do
-    # http://api.myjson.com/objects, always returns json, and only allows the following actions
+    # http://api.myjson.com/objects, always returns json, and only allows the following actions, allow OPTIONS request
     resources :bins, :defaults => {:format => :json}, :only => [:index, :create, :show, :update, :destroy]
     # http://api.myjson.com
     root :to => 'home#index', :defaults => {:format => :text}
