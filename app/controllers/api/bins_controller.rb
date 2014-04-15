@@ -1,7 +1,7 @@
 class API::BinsController < ApplicationController
  
   skip_before_filter  :verify_authenticity_token
-  after_filter :cors_set_access_control_headers
+  #after_filter :cors_set_access_control_headers
 
   # GET /bins
   def index
@@ -47,11 +47,11 @@ class API::BinsController < ApplicationController
   end
 
   # CORS preflight handled at nginx level
-  def cors_set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
-    headers['Access-Control-Max-Age'] = "1728000"
-  end
+  #def cors_set_access_control_headers
+    #headers['Access-Control-Allow-Origin'] = '*'
+    #headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+    #headers['Access-Control-Max-Age'] = "1728000"
+  #end
 
   private
     def bin_params
