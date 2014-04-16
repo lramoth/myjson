@@ -35,7 +35,11 @@ class API::BinsController < ApplicationController
         id = decode_id 
         @bin = Bin.find(id)
         @bin.update(data)
-        format.json { render :json => @bin.data}
+        if params.has_key?(:pretty)
+          format.json { render :json => JSON.pretty_generate(@bin.data)}
+        else
+          format.json { render :json => @bin.data}
+        end
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
       end
@@ -48,7 +52,11 @@ class API::BinsController < ApplicationController
       begin
         id = decode_id 
         @bin = Bin.find(id)
-        format.json { render :json => @bin.data}
+        if params.has_key?(:pretty)
+          format.json { render :json => JSON.pretty_generate(@bin.data)}
+        else
+          format.json { render :json => @bin.data}
+        end
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
       end
