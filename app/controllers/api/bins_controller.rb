@@ -1,7 +1,6 @@
 class API::BinsController < ApplicationController
  
   skip_before_filter  :verify_authenticity_token
-  #after_filter :cors_set_access_control_headers
 
   # GET /bins
   def index
@@ -11,28 +10,9 @@ class API::BinsController < ApplicationController
     end
   end
 
-  # GET /bins/:id
-  def show
-    respond_to do |format|
-      begin
-        #logger.debug "decoding id"
-        #logger.debug "#{params[:id]}"
-        #logger.debug "#{params[:id].to_i(36)}"
-        #logger.debug "#{params[:id].to_i(36).to_s.reverse}"
-        #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop}"
-        #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop.to_i - 1000}"
-        id = params[:id].to_i(36).to_s.reverse.chop.to_i - 1000
-        @bin = Bin.find(id);
-        format.json { render :json => @bin.data}
-      rescue ActiveRecord::RecordNotFound => e
-        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
-      end
-    end
-  end
-
   # POST /bins
   def create
-    data = Hash.new;
+    data = Hash.new
     data["data"] = JSON.parse(request.body.string)
     #logger.debug "request.body.string: #{request.body.string}"
     #logger.debug "data hash: #{data}"
@@ -46,12 +26,46 @@ class API::BinsController < ApplicationController
     end
   end
 
-  # CORS preflight handled at nginx level
-  #def cors_set_access_control_headers
-    #headers['Access-Control-Allow-Origin'] = '*'
-    #headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
-    #headers['Access-Control-Max-Age'] = "1728000"
-  #end
+  # PUT /bins/:id
+  def update
+    data = Hash.new
+    data["data"] = JSON.parse(request.body.string)
+    respond_to do |format|
+      begin
+        id = decode_id 
+        Bin.find(id).update(data)
+        format.json { render :json => {:status => "success"}}
+      rescue ActiveRecord::RecordNotFound => e
+        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
+      end
+    end
+  end
+
+  # GET /bins/:id
+  def show
+    respond_to do |format|
+      begin
+        id = decode_id 
+        @bin = Bin.find(id)
+        format.json { render :json => @bin.data}
+      rescue ActiveRecord::RecordNotFound => e
+        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
+      end
+    end
+  end
+
+  # DELETE /bins/:id
+  def destroy
+    respond_to do |format|
+      begin
+        id = decode_id
+        @bin = Bin.find(id).destroy
+        format.json { render :json => {:status => "success"}}
+      rescue ActiveRecord::RecordNotFound => e
+        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
+      end
+    end
+  end
 
   private
     def bin_params
@@ -64,6 +78,16 @@ class API::BinsController < ApplicationController
       #params.require(:bin).permit().tap do |whitelisted|
         #whitelisted[:data] = params[:bin][:data]
       #end
+    end
+
+    def decode_id
+      #logger.debug "decoding id"
+      #logger.debug "#{params[:id]}"
+      #logger.debug "#{params[:id].to_i(36)}"
+      #logger.debug "#{params[:id].to_i(36).to_s.reverse}"
+      #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop}"
+      #logger.debug "#{params[:id].to_i(36).to_s.reverse.chop.to_i - 1000}"
+      params[:id].to_i(36).to_s.reverse.chop.to_i - 1000
     end
 
 end
