@@ -33,7 +33,8 @@ class API::BinsController < ApplicationController
     respond_to do |format|
       begin
         id = decode_id 
-        @bin = Bin.find(id).update(data)
+        @bin = Bin.find(id)
+        @bin.update(data)
         format.json { render :json => @bin.data}
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
