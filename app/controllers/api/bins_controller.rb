@@ -19,7 +19,7 @@ class API::BinsController < ApplicationController
     @bin = Bin.new(data)
     respond_to do |format|
       if @bin.save
-        format.json { render :json => {:status => "success", :uri => "#{request.original_url}/#{@bin.encode_id}"}}
+        format.json { render :json => {:uri => "#{request.original_url}/#{@bin.encode_id}"}, :status => 201}
       else
         format.json { render json:@bin.errors, status: :unprocessable_entity}
       end
@@ -33,10 +33,10 @@ class API::BinsController < ApplicationController
     respond_to do |format|
       begin
         id = decode_id 
-        Bin.find(id).update(data)
-        format.json { render :json => {:status => "success"}}
+        @bin = Bin.find(id).update(data)
+        format.json { render :json => @bin.data}
       rescue ActiveRecord::RecordNotFound => e
-        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
+        format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
       end
     end
   end
@@ -49,7 +49,7 @@ class API::BinsController < ApplicationController
         @bin = Bin.find(id)
         format.json { render :json => @bin.data}
       rescue ActiveRecord::RecordNotFound => e
-        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
+        format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
       end
     end
   end
@@ -60,9 +60,9 @@ class API::BinsController < ApplicationController
       begin
         id = decode_id
         @bin = Bin.find(id).destroy
-        format.json { render :json => {:status => "success"}}
+        format.json { render :json => {}}
       rescue ActiveRecord::RecordNotFound => e
-        format.json { render :json => {:error => "404 Not Found"}, :status => 404}
+        format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
       end
     end
   end
