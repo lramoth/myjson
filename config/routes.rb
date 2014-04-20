@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
   # and restricted to the api subdomain
   # example: http://api.myjson.com/objects/:id
   namespace :api, :path => "", :constraints => {:subdomain => "api"} do
-    # http://api.myjson.com/objects, always returns json, and only allows the following actions, allow OPTIONS request
+    # http://api.myjson.com/bins, always returns json, and only allows the following actions, allow OPTIONS request
     resources :bins, :defaults => {:format => :json}, :only => [:index, :create, :show, :update, :destroy]
     # http://api.myjson.com
     root :to => 'home#index', :defaults => {:format => :text}
@@ -15,6 +16,12 @@ Rails.application.routes.draw do
 
   # http://myjson.com
   root :to => 'home#index'
+
+  get '/about' => 'static_pages#about'
+  get '/api' => 'static_pages#api'
+  # http://myjson.com/:id
+  get '/:id' => 'home#show', as: :bin
+  post '/' => 'home#create'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

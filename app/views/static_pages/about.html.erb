@@ -1,0 +1,10 @@
+<% provide(:title, 'About') %>
+<div id="staticPage">
+  <div id="content">
+    <p><%= link_to 'myjson', root_url, 'data-no-turbolink' => true %> is a simple JSON store for use in your client side web and/or mobile applications.</p><br />
+    <p>If you've ever needed a quick place to store a configuration file or some data for your models, then myjson can be of service to you. Simply copy and paste your JSON data into the main input window, then access it in your app through the provided URI. myjson URIs support <a target="_blank" href="http://enable-cors.org">Cross-Origin Resource Sharing</a> (CORS) so accessing your data client side won't give you any cross domain issues.</p><br />
+    <p>myjson data URIs should allow you more freedom to quickly prototype your client side and/or mobile app projects. This is perfect for those who don't initially have the time and/or resources to build a full server side implementation to drive their data. Check out the beta <%= link_to 'API', api_path, 'data-no-turbolink' => true %> if you want to POST/PUT your JSON data directly through code.</p><br />
+    <p>If you require support, send your message to <a href="mailto:support@myjson.com" target="_top">support@myjson.com</a>. myjson is developed by Lance Ramoth <a target="_blank" href="https://twitter.com/lance_ramoth">@lance_ramoth</a></p><br />
+    <p><em>Disclaimer: myjson is currently a BETA service. While this service is in BETA you should use it with cautious optimism.</em></p>
+  </div>
+</div>

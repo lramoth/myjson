@@ -77,6 +77,7 @@ class API::BinsController < ApplicationController
   end
 
   private
+
     def bin_params
       #params.require(:bin).permit!
       # Note: since data is json but who's structure is uknown

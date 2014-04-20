@@ -44,3 +44,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
 end
+
+# JSON parsing lib: https://github.com/brianmario/yajl-ruby
+gem 'yajl-ruby', :require => "yajl"

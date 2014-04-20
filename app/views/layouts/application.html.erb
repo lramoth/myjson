@@ -12,10 +12,12 @@
 //-->
 <html>
 <head>
-<title>myJSON.com</title>
+<title>myjson - <%= yield(:title) %></title>
 <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <%= csrf_meta_tags %>
+<script type="text/javascript" src="//use.typekit.net/uhc3ena.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,6 +28,19 @@ ga('send', 'pageview');
 </script>
 </head>
 <body>
+
+<% showLink = !(params[:controller] == 'home' and (params[:action] == 'index' or params[:action] == 'create')) %>
+<div id="header">
+    <h1 id="title"><%= if !showLink then 'myjson' else link_to 'myjson', root_url, 'data-no-turbolink' => true end %></h1>
+    <div id="subTitle">A simple JSON store for your web or mobile app</div>
+    <% if false %><%= "#{params[:controller]} #{params[:action]}" %><% end %>
+    <% if showLink %>
+    <div id="createLink"><%= link_to '+ create new JSON', root_url, 'data-no-turbolink' => true %></div>
+    <% end %>
+</div>
 <%= yield %>
+<div id="footer">
+    &copy; <%= Time.now.year %> myjson.com <%= link_to 'About', about_path, 'data-no-turbolink' => true %> <%= link_to 'API', api_path, 'data-no-turbolink' => true %> 
+</div>
 </body>
 </html>

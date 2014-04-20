@@ -1,0 +1,9 @@
+<% provide(:title, @bin.data.to_s[0..50] + '...') %>
+<div id="home">
+    <div><%= text_area_tag('data', JSON.pretty_generate(@bin.data), class: 'data', readonly: true) %></div>
+    <% if notice %><div id="notice"><%= notice %></div><% end %>
+    <div id="jsonURI">
+        <div>URI to access this JSON directly.</div>
+        <div><%= text_field_tag('uri', api_bin_url, class: 'uri', readonly: true) %></div>
+    </div>
+</div>

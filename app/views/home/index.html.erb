@@ -1,1 +1,10 @@
-<h1 style="text-align:center; padding:128px 0;">myJSON.com</h1>
+<% provide(:title, 'A simple json storage and hosting service') %>
+<div id="home">
+    <%= form_tag do %>
+    <div><%= text_area_tag('data', params[:data], class: 'data', placeholder: "Enter your valid JSON data here.") %></div>
+    <div><%= submit_tag("Save", :class => 'postButton') %></div>
+    <% end %>
+    <% if flash[:error] %>
+      <div class="error"><%= flash[:error] %></div>
+    <% end %>
+</div>
