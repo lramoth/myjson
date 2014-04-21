@@ -19,7 +19,7 @@
 body {
   font-family:"source-sans-pro","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:15px;
-  background:url(noise.jpg);
+  background:url(/assets/noise.jpg);
   color:#333;
 }
 
