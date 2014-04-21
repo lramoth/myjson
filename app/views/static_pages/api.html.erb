@@ -1,6 +1,90 @@
 <% provide(:title, 'API') %>
 <div id="staticPage">
   <div id="content">
-    <p>Find me in app/views/static_pages/api.html.erb</p>
+    <h3 class="title">API</h3>
+    <div>
+        All requests support <a href="http://www.w3.org/TR/cors/" target="_blank">cross-origin resource sharing</a> (CORS).
+    </div>
+    
+    <h4>Root</h4>
+    <div class="doc">
+        <p><%= api_root_url %></p>
+    </div>
+    
+    <br /> 
+    <h4>Request JSON</h4>
+    <div class="doc">
+        <p>GET /bins/:id</p>
+    </div>
+    <br /><p>Server response:</p><br />
+    <div class="doc">
+        <p>200 OK - Your JSON data returned</p>
+    </div>
+    <br /><p>jQuery Example (<a href="http://jsfiddle.net/Lzy59/" target="_blank">run in JSFiddle</a>)</p><br />
+    <div class="doc">
+        <pre>
+$.get("<%= api_bins_url %>/:id", function(data, textStatus, jqXHR) {
+
+});</pre>
+    </div>
+
+    <br />
+    <h4>Create a new JSON</h4>
+    <div class="doc">
+        <p>POST /bins</p>
+    </div>
+    <br /><p>Send JSON as String</p><br />
+    <div class="doc">
+        <pre>'{"key":"value", ...}'</pre>
+    </div>
+    <br /><p>Server response:</p><br />
+    <div class="doc">
+        <p>201 Created - {"uri":"http://api.myjson.com/bins/:id"}</p>
+    </div>
+    <br /><p>jQuery Example (<a href="http://jsfiddle.net/3uu2k/" target="_blank">run in JSFiddle</a>)</p><br />
+    <div class="doc">
+        <pre>
+$.ajax({
+    url:"<%= api_bins_url %>",
+    type:"POST",
+    data:'{"key":"value"}',
+    contentType:"application/json; charset=utf-8",
+    dataType:"json",
+    success: function(data, textStatus, jqXHR){
+
+    }
+});     </pre>
+    </div>
+
+    <br />
+    <h4>Update a JSON</h4>
+    <div class="doc">
+        <p>PUT /bins/:id</p>
+    </div>
+    <br /><p>Send updated JSON as String</p><br />
+    <div class="doc">
+        <pre>'{"key_updated":"value_updated", ...}'</pre>
+    </div>
+    <br /><p>Server response:</p><br />
+    <div class="doc">
+        <p>200 OK - Your JSON data returned</p>
+    </div>
+    <br /><p>jQuery Example (<a href="http://jsfiddle.net/jCRX2/" target="_blank">run in JSFiddle</a>)</p><br />
+    <div class="doc">
+        <pre>
+$.ajax({
+    url:"<%= api_bins_url %>/:id",
+    type:"PUT",
+    data:'{"key_updated":"value_updated"}',
+    contentType:"application/json; charset=utf-8",
+    dataType:"json",
+    success: function(data, textStatus, jqXHR){
+
+    }
+});     </pre>
+    </div>
+
+
+
   </div>
 </div>

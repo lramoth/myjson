@@ -23,7 +23,7 @@ body {
   color:#333;
 }
 
-div, p, body, textarea {
+div, p, body, textarea, pre {
   padding:0;
   margin:0;
 }
@@ -100,7 +100,7 @@ textarea[readonly="readonly"]:hover
 
 #footer {
   width:800px;
-  margin:32px auto 0 auto;
+  margin:32px auto 16px auto;
   color:#999;
   font-size:13px;
   padding:0 16px;
@@ -200,11 +200,27 @@ textarea[readonly="readonly"]:hover
     padding:0 16px;
 }
 
+#staticPage #content h3.title {
+    padding:0;
+    margin:0 0 15px 0;
+}
+
 #staticPage #content{
-    padding:24px 16px;
+    padding:16px 16px 24px 16px;
 	border: 2px solid #ccc;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;
     background:#fff;
+}
+
+#staticPage #content div.doc {
+    background:#fafafa;
+    border:1px solid #bbb;
+    padding:8px;
+    color:#007000;
+}
+
+#staticPage #content div.doc pre {
+    font-size:13px;
 }
