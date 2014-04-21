@@ -12,36 +12,52 @@ class API::BinsController < ApplicationController
 
   # POST /bins
   def create
-    data = Hash.new
-    data["data"] = JSON.parse(request.body.string)
-    #logger.debug "request.body.string: #{request.body.string}"
-    #logger.debug "data hash: #{data}"
-    @bin = Bin.new(data)
-    respond_to do |format|
-      if @bin.save
+    begin
+      data = Hash.new
+      data["data"] = JSON.parse(request.body.string)
+      @bin = Bin.new(data)
+      @bin.save
+      respond_to do |format|
         format.json { render :json => {:uri => "#{request.original_url}/#{@bin.encode_id}"}, :status => 201}
-      else
-        format.json { render json:@bin.errors, status: :unprocessable_entity}
+      end
+    rescue JSON::ParserError => e
+      respond_to do |format|
+        format.json { render :json => {:status => 400, :message => "Bad Request", :more_info => "Invalid JSON"}, :status => 400}
+      end
+    rescue Exception => e
+      respond_to do |format|
+        format.json { render :json => {:status => 500, :message => "Internal Server Error", :more_info => e.message }, :status => 500}
       end
     end
   end
 
   # PUT /bins/:id
   def update
-    data = Hash.new
-    data["data"] = JSON.parse(request.body.string)
-    respond_to do |format|
-      begin
-        id = decode_id 
-        @bin = Bin.find(id)
-        @bin.update(data)
+    begin
+      #raise "test error"
+      data = Hash.new
+      data["data"] = JSON.parse(request.body.string)
+      id = decode_id 
+      @bin = Bin.find(id)
+      @bin.update(data)
+      respond_to do |format|
         if params.has_key?(:pretty)
           format.json { render :json => JSON.pretty_generate(@bin.data)}
         else
           format.json { render :json => @bin.data}
         end
-      rescue ActiveRecord::RecordNotFound => e
+      end
+    rescue JSON::ParserError => e
+      respond_to do |format|
+        format.json { render :json => {:status => 400, :message => "Bad Request", :more_info => "Invalid JSON"}, :status => 400}
+      end
+    rescue ActiveRecord::RecordNotFound => e
+      respond_to do |format|
         format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
+      end
+    rescue Exception => e
+      respond_to do |format|
+        format.json { render :json => {:status => 500, :message => "Internal Server Error", :more_info => e.message }, :status => 500}
       end
     end
   end
@@ -59,6 +75,8 @@ class API::BinsController < ApplicationController
         end
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
+      rescue Exception => e
+        format.json { render :json => {:status => 500, :message => "Internal Server Error", :more_info => e.message }, :status => 500}
       end
     end
   end
@@ -66,13 +84,15 @@ class API::BinsController < ApplicationController
   # DELETE /bins/:id
   def destroy
     respond_to do |format|
-      begin
-        id = decode_id
-        @bin = Bin.find(id).destroy
-        format.json { render :json => {}}
-      rescue ActiveRecord::RecordNotFound => e
-        format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
-      end
+      # until authentication is in place refuse to fulfill this request
+      format.json { render :json => {:status => 403, :message => "Forbidden"}, :status => 403}
+      #begin
+        #id = decode_id
+        #@bin = Bin.find(id).destroy
+        #format.json { render :json => {}}
+      #rescue ActiveRecord::RecordNotFound => e
+        #format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}
+      #end
     end
   end
 
