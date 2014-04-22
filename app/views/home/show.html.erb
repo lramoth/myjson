@@ -4,6 +4,6 @@
     <% if notice %><div id="notice"><%= notice %></div><% end %>
     <div id="jsonURI">
         <div>URI to access this JSON directly.</div>
-        <div><%= text_field_tag('uri', api_bin_url, class: 'uri', readonly: true) %></div>
+        <div><%= text_field_tag('uri', api_bin_url(:protocol => 'https'), class: 'uri', readonly: true) %></div>
     </div>
 </div>

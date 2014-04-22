@@ -3,12 +3,12 @@
   <div id="content">
     <h3 class="title">API</h3>
     <div>
-        All requests support <a href="http://www.w3.org/TR/cors/" target="_blank">cross-origin resource sharing</a> (CORS).
+        All requests support <a href="http://www.w3.org/TR/cors/" target="_blank">cross-origin resource sharing</a> (CORS) and SSL.
     </div>
     
     <h4>Root</h4>
     <div class="doc">
-        <p><%= api_root_url %></p>
+        <p><%= api_root_url(:protocol => 'https') %></p>
     </div>
     
     <br /> 
@@ -23,7 +23,7 @@
     <br /><p>jQuery Example (<a href="http://jsfiddle.net/Lzy59/" target="_blank">run in JSFiddle</a>)</p><br />
     <div class="doc">
         <pre>
-$.get("<%= api_bins_url %>/:id", function(data, textStatus, jqXHR) {
+$.get("<%= api_bins_url(:protocol => 'https') %>/:id", function(data, textStatus, jqXHR) {
 
 });</pre>
     </div>
@@ -39,13 +39,13 @@ $.get("<%= api_bins_url %>/:id", function(data, textStatus, jqXHR) {
     </div>
     <br /><p>Server response:</p><br />
     <div class="doc">
-        <p>201 Created - {"uri":"http://api.myjson.com/bins/:id"}</p>
+        <p>201 Created - {"uri":"<%= api_bins_url(:protocol => 'https')%>/:id"}</p>
     </div>
     <br /><p>jQuery Example (<a href="http://jsfiddle.net/3uu2k/" target="_blank">run in JSFiddle</a>)</p><br />
     <div class="doc">
         <pre>
 $.ajax({
-    url:"<%= api_bins_url %>",
+    url:"<%= api_bins_url(:protocol => 'https') %>",
     type:"POST",
     data:'{"key":"value"}',
     contentType:"application/json; charset=utf-8",
@@ -73,7 +73,7 @@ $.ajax({
     <div class="doc">
         <pre>
 $.ajax({
-    url:"<%= api_bins_url %>/:id",
+    url:"<%= api_bins_url(:protocol => 'https') %>/:id",
     type:"PUT",
     data:'{"key_updated":"value_updated"}',
     contentType:"application/json; charset=utf-8",
