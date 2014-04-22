@@ -32,7 +32,7 @@ ga('send', 'pageview');
 
 <% showLink = !(params[:controller] == 'home' and (params[:action] == 'index' or params[:action] == 'create')) %>
 <div id="header">
-    <h1 id="title"><%= if !showLink then 'myjson' else link_to 'myjson', root_url, 'data-no-turbolink' => true end %></h1>
+    <h1 id="title"><%= if !showLink then '{ } myjson' else link_to '{ } myjson', root_url, 'data-no-turbolink' => true end %></h1>
     <div id="subTitle">A simple JSON store for your web or mobile app</div>
     <% if false %><%= "#{params[:controller]} #{params[:action]}" %><% end %>
     <% if showLink %>
@@ -41,7 +41,7 @@ ga('send', 'pageview');
 </div>
 <%= yield %>
 <div id="footer">
-    &copy; <%= Time.now.year %> myjson.com 1.0.0.beta <%= link_to 'About', about_path, 'data-no-turbolink' => true %> <%= link_to 'API', api_path, 'data-no-turbolink' => true %> 
+    &copy; <%= Time.now.year %> myjson 1.0.0.beta <%= link_to 'About', about_path, 'data-no-turbolink' => true %> <%= link_to 'API', api_path, 'data-no-turbolink' => true %> 
 </div>
 </body>
 </html>
