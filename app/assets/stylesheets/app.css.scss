@@ -1,9 +1,12 @@
+//= depend_on_asset ../../../app/assets/images/noise.jpg
+
 body {
+  background:image_url("noise.jpg");
   font-family:"source-sans-pro","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size:15px;
-  background:url(noise.jpg);
   color:#333;
 }
+
 
 div, p, body, textarea, pre {
   padding:0;
