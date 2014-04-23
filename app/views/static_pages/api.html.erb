@@ -16,11 +16,15 @@
     <div class="doc">
         <p>GET /bins/:id</p>
     </div>
+    <br /><p>To pretty print returned JSON, add optional parameter:</p><br />
+    <div class="doc">
+        <p>?pretty=1</p>
+    </div>
     <br /><p>Server response:</p><br />
     <div class="doc">
         <p>200 OK - Your JSON data returned</p>
     </div>
-    <br /><p>jQuery Example (<a href="http://jsfiddle.net/Lzy59/" target="_blank">run in JSFiddle</a>)</p><br />
+    <br /><p>jQuery Example (<a href="http://jsfiddle.net/FT2Lq/" target="_blank">run in JSFiddle</a>)</p><br />
     <div class="doc">
         <pre>
 $.get("<%= api_bins_url(:protocol => 'https') %>/:id", function(data, textStatus, jqXHR) {
@@ -41,7 +45,7 @@ $.get("<%= api_bins_url(:protocol => 'https') %>/:id", function(data, textStatus
     <div class="doc">
         <p>201 Created - {"uri":"<%= api_bins_url(:protocol => 'https')%>/:id"}</p>
     </div>
-    <br /><p>jQuery Example (<a href="http://jsfiddle.net/3uu2k/" target="_blank">run in JSFiddle</a>)</p><br />
+    <br /><p>jQuery Example (<a href="http://jsfiddle.net/3ryPf/" target="_blank">run in JSFiddle</a>)</p><br />
     <div class="doc">
         <pre>
 $.ajax({
@@ -69,7 +73,7 @@ $.ajax({
     <div class="doc">
         <p>200 OK - Your JSON data returned</p>
     </div>
-    <br /><p>jQuery Example (<a href="http://jsfiddle.net/jCRX2/" target="_blank">run in JSFiddle</a>)</p><br />
+    <br /><p>jQuery Example (<a href="http://jsfiddle.net/M6nuZ/" target="_blank">run in JSFiddle</a>)</p><br />
     <div class="doc">
         <pre>
 $.ajax({
