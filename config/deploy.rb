@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.1.0'
+lock '>=3.2.0'
 
 set :default_stage, "staging"
 set :application, 'myjson'
