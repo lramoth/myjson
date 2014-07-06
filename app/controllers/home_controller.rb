@@ -3,7 +3,8 @@ class HomeController < ApplicationController
   rescue_from ActionController::ParameterMissing, with: :param_missing
 
   def index
-    @bins_count = Bin.count + 9999
+    #@bins_count = Bin.count + 9999
+    @bins_count = 9999
   end
 
   def create
