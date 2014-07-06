@@ -1,4 +1,8 @@
 <% provide(:title, 'A simple json storage and hosting service') %>
+<% content_for :bins_count do %>
+  <div id="footerStats"><%= number_with_delimiter(@bins_count, :delimiter => ',') %> JSONs stored</div>
+<% end %>
+
 <div id="home">
     <%= form_tag do %>
     <div><%= text_area_tag('data', params[:data], class: 'data', placeholder: "Enter your valid JSON data here.") %></div>
