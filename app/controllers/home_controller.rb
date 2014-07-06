@@ -3,8 +3,11 @@ class HomeController < ApplicationController
   rescue_from ActionController::ParameterMissing, with: :param_missing
 
   def index
-    #@bins_count = Bin.count + 9999
-    @bins_count = 9999
+    @bins_count = Rails.cache.read("bins_count");
+    if (!@bins_count) 
+        @bins_count = Bin.count + 9999
+        Rails.cache.write("bins_count", @bins_count)
+    end
   end
 
   def create
