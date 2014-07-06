@@ -18,7 +18,10 @@ class API::BinsController < ApplicationController
       @bin = Bin.new(data)
       @bin.save
       respond_to do |format|
-        format.json { render :json => {:uri => "#{request.original_url}/#{@bin.encode_id}"}, :status => 201}
+        id = @bin.encode_id
+        uri = "#{request.original_url}/#{id}"
+        format.json { render :json => {:uri => uri}, :status => 201}
+        Rails.cache.write "/bins/#{id}", @bin.data.to_json, {:raw => true}
       end
     rescue JSON::ParserError => e
       respond_to do |format|
@@ -45,6 +48,7 @@ class API::BinsController < ApplicationController
           format.json { render :json => JSON.pretty_generate(@bin.data)}
         else
           format.json { render :json => @bin.data}
+          Rails.cache.write "/bins/#{params[:id]}", @bin.data.to_json, {:raw => true}
         end
       end
     rescue JSON::ParserError => e
@@ -68,10 +72,12 @@ class API::BinsController < ApplicationController
       begin
         id = decode_id 
         @bin = Bin.find(id)
+        #logger.debug '*** GET called ***'
         if params.has_key?(:pretty)
           format.json { render :json => JSON.pretty_generate(@bin.data)}
         else
           format.json { render :json => @bin.data}
+          Rails.cache.write "/bins/#{params[:id]}", @bin.data.to_json, {:raw => true}
         end
       rescue ActiveRecord::RecordNotFound => e
         format.json { render :json => {:status => 404, :message => "Not Found"}, :status => 404}

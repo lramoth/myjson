@@ -47,3 +47,6 @@ end
 
 # JSON parsing lib: https://github.com/brianmario/yajl-ruby
 gem 'yajl-ruby', :require => "yajl"
+
+# Dalli is a high performance pure Ruby client for accessing memcached servers.
+gem 'dalli'

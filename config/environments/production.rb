@@ -80,4 +80,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Dalli cache settings
+  config.cache_store = :dalli_store, 'localhost:11211', {:expires_in => 1.hour}
 end
